@@ -5,6 +5,7 @@ import static java.lang.Math.log10;
 import static java.lang.Math.pow;
 
 public class Calculator {
+
     public enum BiOperatorModes {
         normal, add, minus, multiply, divide , xpowerofy 
     }

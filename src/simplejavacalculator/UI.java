@@ -36,7 +36,7 @@ public class UI implements ActionListener {
     private final JTextArea text;
     private final JButton but[], butAdd, butMinus, butMultiply, butDivide,
             butEqual, butCancel, butSquareRoot, butSquare, butOneDevidedBy,
-            butCos, butSin, butTan, butxpowerofy, butlog, butrate, butabs;
+            butCos, butSin, butTan, butxpowerofy, butlog, butrate, butabs,butClear;
     private final Calculator calc;
 
     private final String[] buttonValue = { "0", "1", "2", "3", "4", "5", "6",
@@ -74,7 +74,7 @@ public class UI implements ActionListener {
         butabs = new JButton("abs(x)");
 
         butCancel = new JButton("C");
-
+        butClear= new JButton("CE");
         calc = new Calculator();
     }
 
@@ -133,6 +133,7 @@ public class UI implements ActionListener {
 
         panel.add(butEqual);
         panel.add(butCancel);
+        panel.add(butClear);
 
         butAdd.addActionListener(this);
         butMinus.addActionListener(this);
@@ -151,6 +152,7 @@ public class UI implements ActionListener {
 
         butEqual.addActionListener(this);
         butCancel.addActionListener(this);
+        butClear.addActionListener(this);
     }
 
     @Override
@@ -233,6 +235,9 @@ public class UI implements ActionListener {
 
         if (source == butCancel) {
             writer(calc.reset());
+        }
+        if(source == butClear){
+            text.setText("");
         }
         
         text.selectAll();
