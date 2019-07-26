@@ -46,11 +46,6 @@ public class UI implements ActionListener {
     private boolean memClicked, memCleared, bkspClick = false;
     private int height, width;
 
-    private final JTextArea text;
-    private final JButton but[], butAdd, butMinus, butMultiply, butDivide,
-            butEqual, butCancel, butSquareRoot, butSquare, butOneDevidedBy,
-            butCos, butSin, butTan, butxpowerofy, butlog, butrate, butabs,;
-
     private final Calculator calc;
 
     private final String[] buttonValue = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
