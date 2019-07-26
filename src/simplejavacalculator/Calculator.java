@@ -123,11 +123,6 @@ public class Calculator {
             return num;
         }
 
-        // new code - Decimal functionality - return the current value
-        if (newMode == MonoOperatorModes.decimal) {
-            return num;
-        }
-
         // never reach
         throw new Error();
     }

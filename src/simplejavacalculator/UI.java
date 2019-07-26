@@ -17,7 +17,6 @@
  */
 package simplejavacalculator;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -219,15 +218,17 @@ public class UI implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         final Object source = e.getSource();
 
+        // implemented the decimal button to work here
         for (int i = 0; i < 10; i++) {
-            if (source == but[i]) {
-                text.replaceSelection(buttonValue[i]);
+            if (source == but[i] || source == butDecimal) {
+                if(source == butDecimal && !text.getText().contains(".")) {
+                    text.replaceSelection(".");
+                }
+                else if(source == but[i]) {
+                    text.replaceSelection(buttonValue[i]);
+                }
                 return;
             }
-        }
-        if (source == butDecimal) {
-            // TODO - implement decimal to display on the calculator correctly / store in memory
-            writer(calc.calculateMono(Calculator.MonoOperatorModes.decimal, reader()));
         }
 
         if (source == butAdd) {
@@ -334,15 +335,15 @@ public class UI implements ActionListener {
         String str;
         str = text.getText();
 
-        // new code - check if the value is "" or empty and if so, set num = 0.0
-        if (str.equals("") || str.isEmpty()) {
+        // new code - check if the value is "" or empty or just a decimal point (no numbers) and if so, set num = 0.0
+        if (str.equals("") || str.isEmpty() || str.equals(".")) {
             num = 0.0;
             return num;
         }
 
         // new code - checks for supported input only
         //            supported input is: [0,1,2,3,4,5,6,7,8,9,/,*,-,+,=, and %] right now and can be updated further
-        if (!str.matches("^[0123456789/*-+=^%]*$")) {
+        if (!str.matches("^[0123456789/*-+=^%.]*$")) {
             num = 0.0;
             return num;
         }
@@ -362,10 +363,9 @@ public class UI implements ActionListener {
                 text.setText("");
             }
 
-        } else if (Double.isNaN(num)) {
+        }  else if (Double.isNaN(num)) {
             text.setText("");
         } else {
-
             text.setText(Double.toString(num));
 
             if (memClicked == true) {
