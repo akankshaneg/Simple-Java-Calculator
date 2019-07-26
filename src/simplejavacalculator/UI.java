@@ -37,13 +37,20 @@ public class UI implements ActionListener {
 
     private final JFrame frame;
     private final JPanel panel;
+
     private final JTextArea text, update;
     private final JButton but[], butDecimal, butAdd, butMinus, butMultiply, butDivide,
             butEqual, butCancel, butSquareRoot, butSquare, butOneDividedBy,
             butCos, butSin, butTan, butxpowerofy, butlog, butrate, butabs,
-            butMem, butMemClr, butMemRcl, butBksp;
+            butMem, butMemClr, butMemRcl, butBksp, butClear;
     private boolean memClicked, memCleared, bkspClick = false;
     private int height, width;
+
+    private final JTextArea text;
+    private final JButton but[], butAdd, butMinus, butMultiply, butDivide,
+            butEqual, butCancel, butSquareRoot, butSquare, butOneDevidedBy,
+            butCos, butSin, butTan, butxpowerofy, butlog, butrate, butabs,;
+
     private final Calculator calc;
 
     private final String[] buttonValue = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
@@ -86,6 +93,7 @@ public class UI implements ActionListener {
 
         butCancel = new JButton("C");
 
+
         // MEM button
         // This button will store the latest value when clicked. 
         butMem = new JButton("MEM");
@@ -102,6 +110,8 @@ public class UI implements ActionListener {
         // This button will backspace the field values.
         butBksp = new JButton("BKSP");
 
+        butClear= new JButton("CE");
+      
         // Update field
         // This field will provide updates to the user on what the status of the memory value
         // The field is Read-Only
@@ -170,6 +180,7 @@ public class UI implements ActionListener {
 
         panel.add(butEqual);
         panel.add(butCancel);
+        panel.add(butClear);
 
         // New code - Adding new buttons to the panel
         panel.add(butMem);
@@ -197,11 +208,13 @@ public class UI implements ActionListener {
         butEqual.addActionListener(this);
         butCancel.addActionListener(this);
 
+
         // New code - Adding new button ActionListeners
         butMem.addActionListener(this);
         butMemClr.addActionListener(this);
         butMemRcl.addActionListener(this);
         butBksp.addActionListener(this);
+        butClear.addActionListener(this);
 
         // when the frame is resized, update the button/field sizes
         frame.addComponentListener(new ComponentAdapter() {
@@ -211,6 +224,7 @@ public class UI implements ActionListener {
                 // TODO - get the buttons to auto-resize with new layout
             }
         });
+
 
     }
 
@@ -302,6 +316,7 @@ public class UI implements ActionListener {
             writer(calc.reset());
         }
 
+
         // if the MEM button is pressed, store/display the value
         if (source == butMem) {
             memClicked = true;
@@ -326,6 +341,11 @@ public class UI implements ActionListener {
             bkspClick = true;
             writer(calc.calculateMono(Calculator.MonoOperatorModes.bksp, reader()));
         }
+
+        if(source == butClear){
+            text.setText("");
+        }
+        
 
         text.selectAll();
     }
