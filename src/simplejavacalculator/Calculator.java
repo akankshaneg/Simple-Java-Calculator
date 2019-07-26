@@ -1,20 +1,21 @@
 package simplejavacalculator;
 
-import static java.lang.Math.log;
 import static java.lang.Math.log10;
 import static java.lang.Math.pow;
 
 public class Calculator {
 
     public enum BiOperatorModes {
-        normal, add, minus, multiply, divide , xpowerofy 
+
+        normal, add, minus, multiply, divide, xpowerofy
     }
 
     public enum MonoOperatorModes {
-        square, squareRoot, oneDevidedBy, cos, sin, tan ,log , rate, abs
+
+        square, squareRoot, oneDevidedBy, cos, sin, tan, log, rate, abs, mem, memRcl, memClr, bksp, decimal
     }
 
-    private Double num1, num2;
+    private Double num1, num2, memNum;
     private BiOperatorModes mode = BiOperatorModes.normal;
 
     private Double calculateBiImpl() {
@@ -34,7 +35,7 @@ public class Calculator {
             return num1 / num2;
         }
         if (mode == BiOperatorModes.xpowerofy) {
-            return pow(num1,num2);
+            return pow(num1, num2);
         }
 
         // never reach
@@ -90,13 +91,37 @@ public class Calculator {
             return log10(num);
         }
         if (newMode == MonoOperatorModes.rate) {
-           return num / 100;
+            return num / 100;
         }
-        if(newMode == MonoOperatorModes.abs){
+        if (newMode == MonoOperatorModes.abs) {
             return Math.abs(num);
         }
-        
 
+        // new code - memory function - store & return the value
+        if (newMode == MonoOperatorModes.mem) {
+            memNum = num;
+            return memNum;
+        }
+
+        // new code - memory recall function - return the stored value
+        if (newMode == MonoOperatorModes.memRcl) {
+            if (memNum != null) {
+                return memNum;
+            } else {
+                return num;
+            }
+        }
+
+        // new code - memory clear function - clear the stored value
+        if (newMode == MonoOperatorModes.memClr) {
+            memNum = 0.0;
+            return memNum;
+        }
+
+        // new code - Backspace functionality - return the current value
+        if (newMode == MonoOperatorModes.bksp) {
+            return num;
+        }
 
         // never reach
         throw new Error();
