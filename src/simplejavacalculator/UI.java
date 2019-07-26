@@ -349,16 +349,23 @@ public class UI implements ActionListener {
         Double num;
         String str;
         str = text.getText();
-
+        
+        // new code - remove all whitespace from text field
+        for(int i = 0; i < str.length(); i++) {
+            if(str.contains(" ")){
+                str = str.replaceAll("\\s", "");
+            }
+        }
+        
         // new code - check if the value is "" or empty or just a decimal point (no numbers) and if so, set num = 0.0
         if (str.equals("") || str.isEmpty() || str.equals(".")) {
             num = 0.0;
             return num;
         }
-
+        
         // new code - checks for supported input only
         //            supported input is: [0,1,2,3,4,5,6,7,8,9,/,*,-,+,=, and %] right now and can be updated further
-        if (!str.matches("^[0123456789/*-+=^%.]*$")) {
+        if (!str.matches("^[0123456789/*-+=^%. ]*$")) {
             num = 0.0;
             return num;
         }
