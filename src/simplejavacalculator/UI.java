@@ -17,28 +17,22 @@
  */
 package simplejavacalculator;
 
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.ImageIcon;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.*;
+import javax.swing.border.CompoundBorder;
 
 public class UI implements ActionListener {
 
     private final JFrame frame;
     private final JPanel panel;
 
-    private final JTextArea text, update;
+    private final JTextField text, update;
     private final JButton but[], butDecimal, butAdd, butMinus, butMultiply, butDivide,
             butEqual, butCancel, butSquareRoot, butSquare, butOneDividedBy,
             butCos, butSin, butTan, butxpowerofy, butlog, butrate, butabs,
@@ -46,89 +40,89 @@ public class UI implements ActionListener {
     private boolean memClicked, memCleared, bkspClick = false;
     private int height, width;
 
-    private final JTextArea text;
-    private final JButton but[], butAdd, butMinus, butMultiply, butDivide,
-            butEqual, butCancel, butSquareRoot, butSquare, butOneDevidedBy,
-            butCos, butSin, butTan, butxpowerofy, butlog, butrate, butabs,;
-
     private final Calculator calc;
 
     private final String[] buttonValue = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
     public UI() {
-        // frame = new JFrame("Calculator PH");             // original code
-        frame = new JFrame("Open Source Calculator");       // new code - update the window title
+        text = new JTextField();
+        text.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        text.setFont(new Font("Arial", Font.PLAIN, 36));
+        text.setBackground(new Color(15, 0, 25));
+        text.setForeground(Color.white);
+        text.setMargin(new Insets(5, 0, 5, 20));
+        CompoundBorder border = BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(),
+                BorderFactory.createEmptyBorder(5, 0, 5, 10));
+        text.setBorder(border);
 
-        // frame.setResizable(false);                       // original code
-        frame.setResizable(true);                           // new code - set window to be resizable
-
-        // new code - update window icon
-        // calculator.png file is located in src\simplejavacalculator 
-        frame.setIconImage(new ImageIcon(getClass().getResource("calculatorImg.png")).getImage());
-
-        panel = new JPanel(new FlowLayout());
-
-        text = new JTextArea(2, 25);
         but = new JButton[10];
         for (int i = 0; i < 10; i++) {
-            but[i] = new JButton(String.valueOf(i));
+            but[i] = ButtonFactory.getButton(buttonValue[i], ButtonType.PRIMARY);
         }
 
-        butDecimal = new JButton(".");
-        butAdd = new JButton("+");
-        butMinus = new JButton("-");
-        butMultiply = new JButton("*");
-        butDivide = new JButton("/");
-        butEqual = new JButton("=");
-        butSquareRoot = new JButton("√");
-        butSquare = new JButton("x*x");
-        butOneDividedBy = new JButton("1/x");
-        butCos = new JButton("Cos");
-        butSin = new JButton("Sin");
-        butTan = new JButton("Tan");
-        butxpowerofy = new JButton("x^y");
-        butlog = new JButton("log10(x)");
-        butrate = new JButton("x%");
-        butabs = new JButton("abs(x)");
+        butDecimal = ButtonFactory.getButton(".", ButtonType.OPERATION);
+        butAdd = ButtonFactory.getButton("+", ButtonType.OPERATION);
+        butMinus = ButtonFactory.getButton("–", ButtonType.OPERATION);
+        butMultiply = ButtonFactory.getButton("x", ButtonType.OPERATION);
+        butDivide = ButtonFactory.getButton("/", ButtonType.OPERATION);
+        butEqual = ButtonFactory.getButton("=", ButtonType.OPERATION);
+        butSquareRoot = ButtonFactory.getButton("√", ButtonType.SECONDARY);
+        butSquare = ButtonFactory.getButton("x*x", ButtonType.SECONDARY);
+        butOneDividedBy = ButtonFactory.getButton("1/x", ButtonType.SECONDARY);
+        butCos = ButtonFactory.getButton("Cos", ButtonType.SECONDARY);
+        butSin = ButtonFactory.getButton("Sin", ButtonType.SECONDARY);
+        butTan = ButtonFactory.getButton("Tan", ButtonType.SECONDARY);
+        butxpowerofy = ButtonFactory.getButton("x^y", ButtonType.SECONDARY);
+        butlog = ButtonFactory.getButton("log10", ButtonType.SECONDARY);
+        butrate = ButtonFactory.getButton("x%", ButtonType.SECONDARY);
+        butabs = ButtonFactory.getButton("abs(x)", ButtonType.SECONDARY);
 
-        butCancel = new JButton("C");
-
+        butCancel = ButtonFactory.getButton("C", ButtonType.SECONDARY);
 
         // MEM button
         // This button will store the latest value when clicked. 
-        butMem = new JButton("MEM");
+        butMem = ButtonFactory.getButton("MEM", ButtonType.SECONDARY);
 
         // MC button
         // This button will clear the stored memory value.
-        butMemClr = new JButton("MC");
+        butMemClr = ButtonFactory.getButton("MC", ButtonType.SECONDARY);
 
         // MR button
         // This button will display the stored memory value.
-        butMemRcl = new JButton("MR");
+        butMemRcl = ButtonFactory.getButton("MR", ButtonType.SECONDARY);
 
         // BKSP button
         // This button will backspace the field values.
-        butBksp = new JButton("BKSP");
+        butBksp = ButtonFactory.getButton("BKSP", ButtonType.SECONDARY);
 
-        butClear= new JButton("CE");
+        butClear = ButtonFactory.getButton("CE", ButtonType.SECONDARY);
       
         // Update field
         // This field will provide updates to the user on what the status of the memory value
         // The field is Read-Only
-        update = new JTextArea(1, 25);
+        update = new JTextField();
         update.setEditable(false);
 
         calc = new Calculator();
+
+        // Layout
+        panel = new JPanel(new GridLayout(5, 6, 1, 1));
+        panel.setBackground(new Color(15, 0, 25));
+        frame = new JFrame("Open Source Calculator");
+        frame.setVisible(true);
+        frame.setResizable(true);
+        frame.setMinimumSize(new Dimension(400, 400));
+        width = frame.getWidth();
+        height = frame.getHeight();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(text, BorderLayout.NORTH);
+        frame.add(panel, BorderLayout.CENTER);
+        // calculator.png file is located in src\simplejavacalculator
+        //TODO: Find out why this hides the calculator buttons.
+        //frame.setIconImage(new ImageIcon(getClass().getResource("calculatorImg.png")).getImage());
     }
 
     public void init() {
-        frame.setVisible(true);
-        frame.setMinimumSize(new Dimension(330, 300));
-        width = frame.getWidth();
-        height = frame.getHeight();
-        // frame.setSize(330, 300);                                     // original code
-        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        // original code
-
         /*
          * New Code
          * 
@@ -152,43 +146,59 @@ public class UI implements ActionListener {
             }
         });
 
-        frame.add(panel);
-        panel.add(text);
+        // Row #1
+        panel.add(butSquare);
+        panel.add(butSquareRoot);
+        panel.add(butClear);
+        panel.add(butMem);
+        panel.add(butMemClr);
+        panel.add(butMemRcl);
 
-        for (int i = 1; i < 10; i++) {
+        // Row #2
+        panel.add(butOneDividedBy);
+        panel.add(butCos);
+
+        for (int i = 7; i <= 9; i++) {
             panel.add(but[i]);
             but[i].addActionListener(this);
         }
+
+        panel.add(butMultiply);
+
+        // Row #3
+        panel.add(butSin);
+        panel.add(butTan);
+
+        for (int i = 4; i <= 6; i++) {
+            panel.add(but[i]);
+            but[i].addActionListener(this);
+        }
+
+        panel.add(butMinus);
+
+        // Row #4
+        panel.add(butxpowerofy);
+        panel.add(butlog);
+
+        for (int i = 1; i <= 3; i++) {
+            panel.add(but[i]);
+            but[i].addActionListener(this);
+        }
+
+        panel.add(butAdd);
+
+        // Row #5
+        panel.add(butrate);
+        panel.add(butabs);
+
         panel.add(but[0]);
         but[0].addActionListener(this);
 
         panel.add(butDecimal);
-        panel.add(butAdd);
-        panel.add(butMinus);
-        panel.add(butMultiply);
-        panel.add(butDivide);
-        panel.add(butSquare);
-        panel.add(butSquareRoot);
-        panel.add(butOneDividedBy);
-        panel.add(butCos);
-        panel.add(butSin);
-        panel.add(butTan);
-        panel.add(butxpowerofy);
-        panel.add(butlog);
-        panel.add(butrate);
-        panel.add(butabs);
-
-        panel.add(butEqual);
-        panel.add(butCancel);
-        panel.add(butClear);
-
-        // New code - Adding new buttons to the panel
-        panel.add(butMem);
-        panel.add(butMemClr);
-        panel.add(butMemRcl);
         panel.add(butBksp);
-        panel.add(update);
+        panel.add(butEqual);
 
+        // ActionListeners
         butDecimal.addActionListener(this);
         butAdd.addActionListener(this);
         butMinus.addActionListener(this);
@@ -204,10 +214,8 @@ public class UI implements ActionListener {
         butlog.addActionListener(this);
         butrate.addActionListener(this);
         butabs.addActionListener(this);
-
         butEqual.addActionListener(this);
         butCancel.addActionListener(this);
-
 
         // New code - Adding new button ActionListeners
         butMem.addActionListener(this);
@@ -224,8 +232,6 @@ public class UI implements ActionListener {
                 // TODO - get the buttons to auto-resize with new layout
             }
         });
-
-
     }
 
     @Override
@@ -342,10 +348,9 @@ public class UI implements ActionListener {
             writer(calc.calculateMono(Calculator.MonoOperatorModes.bksp, reader()));
         }
 
-        if(source == butClear){
+        if (source == butClear){
             text.setText("");
         }
-        
 
         text.selectAll();
     }
@@ -354,16 +359,23 @@ public class UI implements ActionListener {
         Double num;
         String str;
         str = text.getText();
-
+        
+        // new code - remove all whitespace from text field
+        for(int i = 0; i < str.length(); i++) {
+            if(str.contains(" ")){
+                str = str.replaceAll("\\s", "");
+            }
+        }
+        
         // new code - check if the value is "" or empty or just a decimal point (no numbers) and if so, set num = 0.0
         if (str.equals("") || str.isEmpty() || str.equals(".")) {
             num = 0.0;
             return num;
         }
-
+        
         // new code - checks for supported input only
         //            supported input is: [0,1,2,3,4,5,6,7,8,9,/,*,-,+,=, and %] right now and can be updated further
-        if (!str.matches("^[0123456789/*-+=^%.]*$")) {
+        if (!str.matches("^[0123456789/*-+=^%. ]*$")) {
             num = 0.0;
             return num;
         }
