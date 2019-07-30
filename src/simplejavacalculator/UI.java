@@ -284,7 +284,7 @@ public class UI implements ActionListener {
 
         if (source == butOneDividedBy) {
             writer(calc.calculateMono(
-                    Calculator.MonoOperatorModes.oneDevidedBy, reader()));
+                    Calculator.MonoOperatorModes.oneDividedBy, reader()));
         }
 
         if (source == butCos) {

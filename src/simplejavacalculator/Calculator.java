@@ -12,13 +12,13 @@ public class Calculator {
 
     public enum MonoOperatorModes {
 
-        square, squareRoot, oneDevidedBy, cos, sin, tan, log, rate, abs, mem, memRcl, memClr, bksp, decimal
+        square, squareRoot, oneDividedBy, cos, sin, tan, log, rate, abs, mem, memRcl, memClr, bksp, decimal
     }
 
-    private Double num1, num2, memNum;
-    private BiOperatorModes mode = BiOperatorModes.normal;
+    public Double num1, num2, memNum;
+    public BiOperatorModes mode = BiOperatorModes.normal;
 
-    private Double calculateBiImpl() {
+    public Double calculateBiImpl() {
         if (mode == BiOperatorModes.normal) {
             return num2;
         }
@@ -75,7 +75,7 @@ public class Calculator {
         if (newMode == MonoOperatorModes.squareRoot) {
             return Math.sqrt(num);
         }
-        if (newMode == MonoOperatorModes.oneDevidedBy) {
+        if (newMode == MonoOperatorModes.oneDividedBy) {
             return 1 / num;
         }
         if (newMode == MonoOperatorModes.cos) {
