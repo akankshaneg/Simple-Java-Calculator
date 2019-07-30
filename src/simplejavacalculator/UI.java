@@ -109,6 +109,8 @@ public class UI implements ActionListener {
         panel = new JPanel(new GridLayout(5, 6, 1, 1));
         panel.setBackground(new Color(15, 0, 25));
         frame = new JFrame("Open Source Calculator");
+        // calculator.png file is located in src\simplejavacalculator
+        frame.setIconImage(new ImageIcon(getClass().getResource("calculatorImg.png")).getImage());
         frame.setVisible(true);
         frame.setResizable(true);
         frame.setMinimumSize(new Dimension(400, 400));
@@ -116,10 +118,7 @@ public class UI implements ActionListener {
         height = frame.getHeight();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(text, BorderLayout.NORTH);
-        frame.add(panel, BorderLayout.CENTER);
-        // calculator.png file is located in src\simplejavacalculator
-        //TODO: Find out why this hides the calculator buttons.
-        //frame.setIconImage(new ImageIcon(getClass().getResource("calculatorImg.png")).getImage());
+        frame.add(panel, BorderLayout.CENTER);  
     }
 
     public void init() {
