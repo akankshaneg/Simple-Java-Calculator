@@ -64,7 +64,7 @@ public class UI implements ActionListener {
         butAdd = ButtonFactory.getButton("+", ButtonType.OPERATION);
         butMinus = ButtonFactory.getButton("–", ButtonType.OPERATION);
         butMultiply = ButtonFactory.getButton("x", ButtonType.OPERATION);
-        butDivide = ButtonFactory.getButton("/", ButtonType.OPERATION);
+        butDivide = ButtonFactory.getButton("÷", ButtonType.OPERATION);
         butEqual = ButtonFactory.getButton("=", ButtonType.OPERATION);
         butSquareRoot = ButtonFactory.getButton("√", ButtonType.SECONDARY);
         butSquare = ButtonFactory.getButton("x*x", ButtonType.SECONDARY);
@@ -106,7 +106,7 @@ public class UI implements ActionListener {
         calc = new Calculator();
 
         // Layout
-        panel = new JPanel(new GridLayout(5, 6, 1, 1));
+        panel = new JPanel(new GridLayout(6, 6, 1, 1));
         panel.setBackground(new Color(15, 0, 25));
         frame = new JFrame("Open Source Calculator");
         // calculator.png file is located in src\simplejavacalculator
@@ -194,6 +194,7 @@ public class UI implements ActionListener {
         but[0].addActionListener(this);
 
         panel.add(butDecimal);
+        panel.add(butDivide);
         panel.add(butBksp);
         panel.add(butEqual);
 
