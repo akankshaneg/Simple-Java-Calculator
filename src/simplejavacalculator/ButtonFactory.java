@@ -11,7 +11,7 @@ public class ButtonFactory {
             case PRIMARY:
                 button = create();
                 button.setBackground(new Color(105,105,105));
-                button.setFont(new Font("Arial", Font.PLAIN, 26));
+                button.setFont(new Font("Arial", Font.PLAIN, 24));
                 button.setText(text);
                 button.setBorder(null);
                 return button;
@@ -25,7 +25,8 @@ public class ButtonFactory {
             case OPERATION:
                 button = create();
                 button.setBackground(Color.darkGray);
-                button.setFont(new Font("Arial", Font.PLAIN, 26));
+                button.setForeground(new Color(245,222,179));
+                button.setFont(new Font("Arial", Font.PLAIN, 24));
                 button.setText(text);
                 button.setBorder(null);
                 return button;
