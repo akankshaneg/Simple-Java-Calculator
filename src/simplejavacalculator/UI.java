@@ -397,7 +397,12 @@ public class UI implements ActionListener {
         }  else if (Double.isNaN(num)) {
             text.setText("");
         } else {
-            text.setText(Double.toString(num));
+            if (num % 1 == 0) {
+                // Don't show decimal for whole number.
+                text.setText(Integer.toString(num.intValue()));
+            } else {
+                text.setText(Double.toString(num));
+            }
 
             if (memClicked == true) {
                 update.setText("Memory Value Stored = " + text.getText());
