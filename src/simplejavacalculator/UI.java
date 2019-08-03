@@ -18,12 +18,7 @@
 package simplejavacalculator;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 
@@ -55,6 +50,7 @@ public class UI implements ActionListener {
         CompoundBorder border = BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(),
                 BorderFactory.createEmptyBorder(5, 0, 5, 10));
         text.setBorder(border);
+        text.setEditable(false);
 
         but = new JButton[10];
         for (int i = 0; i < 10; i++) {
@@ -147,6 +143,9 @@ public class UI implements ActionListener {
                 frame.dispose();
             }
         });
+
+        KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+        manager.addKeyEventDispatcher(new MyDispatcher());
 
         // Row #1
         panel.add(butSquare);
@@ -351,7 +350,10 @@ public class UI implements ActionListener {
             text.setText("");
         }
 
-        text.selectAll();
+        //TODO: Determine if "selectAll()" this is needed.
+        // This causes issues with the BKSP key: enter numbers --> backspace --> enter new numbers
+        // Result: Original numbers are overwritten.
+        //text.selectAll();
     }
 
     public Double reader() {
@@ -412,5 +414,73 @@ public class UI implements ActionListener {
             }
         }
         bkspClick = false;
+    }
+
+    private class MyDispatcher implements KeyEventDispatcher {
+        @Override
+        public boolean dispatchKeyEvent(KeyEvent e) {
+            if (e.getID() == KeyEvent.KEY_TYPED) {
+                switch(e.getKeyChar()) {
+                    case '0':
+                        but[0].doClick();
+                        break;
+                    case '1':
+                        but[1].doClick();
+                        break;
+                    case '2':
+                        but[2].doClick();
+                        break;
+                    case '3':
+                        but[3].doClick();
+                        break;
+                    case '4':
+                        but[4].doClick();
+                        break;
+                    case '5':
+                        but[5].doClick();
+                        break;
+                    case '6':
+                        but[6].doClick();
+                        break;
+                    case '7':
+                        but[7].doClick();
+                        break;
+                    case '8':
+                        but[8].doClick();
+                        break;
+                    case '9':
+                        but[9].doClick();
+                        break;
+                    case '/':
+                        butDivide.doClick();
+                        break;
+                    case '*':
+                        butMultiply.doClick();
+                        break;
+                    case '-':
+                        butMinus.doClick();
+                        break;
+                    case '+':
+                        butAdd.doClick();
+                        break;
+                    case '.':
+                        butDecimal.doClick();
+                        break;
+                    case '\n':
+                        butEqual.doClick();
+                        break;
+                    case '\b':
+                        butBksp.doClick();
+                        break;
+                    case '\u001B':
+                        butClear.doClick();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            return false;
+        }
     }
 }
