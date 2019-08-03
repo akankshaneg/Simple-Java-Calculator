@@ -46,7 +46,8 @@ public class UI implements ActionListener {
 
     public UI() {
         text = new JTextField();
-        text.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        text.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+        text.setHorizontalAlignment(SwingConstants.RIGHT);
         text.setFont(new Font("Arial", Font.PLAIN, 36));
         text.setBackground(new Color(15, 0, 25));
         text.setForeground(Color.white);
