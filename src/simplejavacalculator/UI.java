@@ -60,11 +60,11 @@ public class UI implements ActionListener {
             but[i] = ButtonFactory.getButton(buttonValue[i], ButtonType.PRIMARY);
         }
 
-        butDecimal = ButtonFactory.getButton(".", ButtonType.OPERATION);
+        butDecimal = ButtonFactory.getButton(".", ButtonType.PRIMARY);
         butAdd = ButtonFactory.getButton("+", ButtonType.OPERATION);
         butMinus = ButtonFactory.getButton("–", ButtonType.OPERATION);
         butMultiply = ButtonFactory.getButton("x", ButtonType.OPERATION);
-        butDivide = ButtonFactory.getButton("/", ButtonType.OPERATION);
+        butDivide = ButtonFactory.getButton("÷", ButtonType.OPERATION);
         butEqual = ButtonFactory.getButton("=", ButtonType.OPERATION);
         butSquareRoot = ButtonFactory.getButton("√", ButtonType.SECONDARY);
         butSquare = ButtonFactory.getButton("x*x", ButtonType.SECONDARY);
@@ -93,10 +93,11 @@ public class UI implements ActionListener {
 
         // BKSP button
         // This button will backspace the field values.
-        butBksp = ButtonFactory.getButton("BKSP", ButtonType.SECONDARY);
+        butBksp = ButtonFactory.getButton("BKSP", ButtonType.PRIMARY);
+        butBksp.setFont(butBksp.getFont().deriveFont(14.0f));
 
         butClear = ButtonFactory.getButton("CE", ButtonType.SECONDARY);
-      
+
         // Update field
         // This field will provide updates to the user on what the status of the memory value
         // The field is Read-Only
@@ -113,12 +114,13 @@ public class UI implements ActionListener {
         frame.setIconImage(new ImageIcon(getClass().getResource("calculatorImg.png")).getImage());
         frame.setVisible(true);
         frame.setResizable(true);
-        frame.setMinimumSize(new Dimension(400, 400));
+        frame.setMinimumSize(new Dimension(360, 350));
         width = frame.getWidth();
         height = frame.getHeight();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(text, BorderLayout.NORTH);
-        frame.add(panel, BorderLayout.CENTER);  
+        frame.add(panel, BorderLayout.CENTER);
+        frame.add(butClear, BorderLayout.SOUTH);
     }
 
     public void init() {
@@ -148,14 +150,14 @@ public class UI implements ActionListener {
         // Row #1
         panel.add(butSquare);
         panel.add(butSquareRoot);
-        panel.add(butClear);
         panel.add(butMem);
         panel.add(butMemClr);
         panel.add(butMemRcl);
+        panel.add(butDivide);
 
         // Row #2
         panel.add(butOneDividedBy);
-        panel.add(butCos);
+        panel.add(butlog);
 
         for (int i = 7; i <= 9; i++) {
             panel.add(but[i]);
@@ -166,7 +168,7 @@ public class UI implements ActionListener {
 
         // Row #3
         panel.add(butSin);
-        panel.add(butTan);
+        panel.add(butabs);
 
         for (int i = 4; i <= 6; i++) {
             panel.add(but[i]);
@@ -176,8 +178,8 @@ public class UI implements ActionListener {
         panel.add(butMinus);
 
         // Row #4
+        panel.add(butCos);
         panel.add(butxpowerofy);
-        panel.add(butlog);
 
         for (int i = 1; i <= 3; i++) {
             panel.add(but[i]);
@@ -187,12 +189,9 @@ public class UI implements ActionListener {
         panel.add(butAdd);
 
         // Row #5
-        panel.add(butrate);
-        panel.add(butabs);
-
-        panel.add(but[0]);
+        panel.add(butTan);
+        panel.add(butrate);panel.add(but[0]);
         but[0].addActionListener(this);
-
         panel.add(butDecimal);
         panel.add(butBksp);
         panel.add(butEqual);
